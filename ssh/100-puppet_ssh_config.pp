@@ -1,20 +1,16 @@
-file { '/home/vagrant/.ssh/config':
+# This Puppet manifest configures the SSH client to use a specific private key
+# and disables password authentication.
+
+# Ensure the SSH config file is present with the required settings
+file { '/etc/ssh/ssh_config':
   ensure  => file,
-  owner   => 'vagrant',
-  group   => 'vagrant',
-  mode    => '0600',
-  content => template('ssh_config.erb'),
-}
-
-file_line { 'Turn off passwd auth':
-  path  => '/etc/ssh/sshd_config',
-  line  => 'PasswordAuthentication no',
-  match => 'PasswordAuthentication',
-}
-
-file_line { 'Declare identity file':
-  path  => '/etc/ssh/sshd_config',
-  line  => 'IdentityFile ~/.ssh/school',
-  match => 'IdentityFile',
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0644',
+  content => @("END_CONTENT")
+    Host *
+        IdentityFile ~/.ssh/school
+        PasswordAuthentication no
+END_CONTENT
 }
 
