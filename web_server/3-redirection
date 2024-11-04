@@ -1,26 +1,48 @@
 #!/usr/bin/env bash
-# script that install nginx and configure it to redirect to another page when
-# accessing the /redirect_me page.
+# Script to install Nginx and configure it to redirect /redirect_me to another page.
+
+# Update package index
 sudo apt update -y
+
+# Install Nginx
 sudo apt install nginx -y
 
-sudo mkdir /etc/nginx/html
-sudo touch /etc/nginx/html/index.html
-# store configuration content
-new_config=\
-"server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-               root /var/www/html;
-        index index.html index.htm index.nginx-debian.html;
-        server_name _;
-        location / {
-                try_files \$uri \$uri/ =404;
-        }
-        location /redirect_me { 
-            return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-        }
+# Remove the default server block if it exists
+sudo rm -f /etc/nginx/sites-enabled/default
+
+# Create the new server block configuration
+new_config="server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;  # Correct document root
+    index index.html;  # Default index file
+
+    server_name _;  # Respond to any server name
+
+    location / {
+        try_files \$uri \$uri/ =404;  # Serve files or return 404
+    }
+
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;  # Permanent redirect
+    }
 }
 "
-echo "$new_config" > /etc/nginx/sites-available/default
+
+# Write the new configuration to the default site
+echo "$new_config" | sudo tee /etc/nginx/sites-available/default > /dev/null
+
+# Create the document root directory and the index.html file
+sudo mkdir -p /var/www/html
+echo "Holberton School" | sudo tee /var/www/html/index.html > /dev/null
+
+# Enable the new site configuration
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+# Test Nginx configuration
+sudo nginx -t
+
+# Restart Nginx
 sudo service nginx restart
+
