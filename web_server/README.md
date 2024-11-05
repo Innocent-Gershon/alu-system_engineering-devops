@@ -1,1 +1,1 @@
-The SSH projects
+The web server project
