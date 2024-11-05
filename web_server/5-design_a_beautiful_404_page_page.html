@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Page Not Found</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            color: #333;
+        }
+        h1 {
+            font-size: 6em;
+            color: #ff6347;
+            margin: 0;
+        }
+        p {
+            font-size: 1.5em;
+            color: #555;
+            margin: 20px 0;
+        }
+        .cta {
+            font-size: 1.2em;
+            color: #007BFF;
+            text-decoration: none;
+            background-color: #f0f0f0;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 2px solid #007BFF;
+            transition: 0.3s;
+        }
+        .cta:hover {
+            background-color: #007BFF;
+            color: white;
+        }
+        .image-container {
+            margin-top: 30px;
+        }
+        .image-container img {
+            width: 150px;
+            animation: bounce 1s infinite alternate;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>404</h1>
+    <p>Ceci n'est pas une page</p>
+    <p>Oops! Looks like the page you're looking for doesn't exist.</p>
+    
+    <!-- Fun CTA Button -->
+    <a href="/" class="cta">Go Home</a>
+
+    <!-- Fun Image -->
+    <div class="image-container">
+        <img src="https://media.giphy.com/media/26tP7go3GJ2lULpnG/giphy.gif" alt="404 Error Image" />
+    </div>
+
+</body>
+</html>
+
