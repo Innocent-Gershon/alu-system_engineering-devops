@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Start nginx service if it's not running
+service nginx start
+# Ensure the default page exists
+echo "Welcome to nginx!" > /var/www/html/index.html
+# Check if nginx is running now
+service nginx status
+
